@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server/server.js",
+    "test": "nyc mocha --require babel-register ./tests/*/*.js",
     "db:latest": "knex --knexfile database/knexfile.js migrate:latest",
     "db:rollback": "knex --knexfile database/knexfile.js migrate:rollback"
   },

@@ -9,21 +9,23 @@ server.use( bodyParser.json() )
 const router = express.Router()
 
 server.get('/', (req, res, next) => {
-  res.send('Weather goes here')
+  res.status(200).send('Weather goes here')
 })
 
-server.get( (req, res, next) => {
-  let error = new Error('aint no weather')
-  error.status(404)
-  next(error)
+server.use( (req, res, next) => {
+  let err = new Error('aint no weather')
+  err.status = 404
+  next(err)
 })
 
-server.get((req, res, next) => {
-  res.status = error.status || 505
-  res.json({
-    status: 'you fail',
-    message: error.message
-  })
+server.use((err, req, res, next) => {
+  console.log('error status::', err.status)
+  res.status(err.status || 505)
+    .json({
+      status: 'you fail',
+      message: err.message,
+      error: err
+    })
 })
 
 server.listen(3000, () => {
