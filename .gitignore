@@ -1,2 +1,6 @@
 node_modules
 .idea
+.nyc_output/a8accee1b1ec759f3ae7d9421db0f8aa.json
+.nyc_output/da1c84c546d5c412455fa41eed67dae3.json
+coverage/
+.nyc_output/
