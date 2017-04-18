@@ -1,7 +1,5 @@
 
-module.exports = {
-
-  development: {
+var knexConfig = {
     client: 'pg',
     connection: `postgres://${process.env.USER}@localhost:5432/weather-app`,
     migrations: {
@@ -13,4 +11,4 @@ module.exports = {
         tableName: 'knex_seeds'
     }
   }
-}
+    module.exports = knexConfig

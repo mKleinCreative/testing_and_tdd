@@ -7,7 +7,8 @@
     "start": "nodemon server/server.js",
     "test": "nyc mocha --require babel-register ./tests/*/*.js",
     "db:latest": "knex --knexfile database/knexfile.js migrate:latest",
-    "db:rollback": "knex --knexfile database/knexfile.js migrate:rollback"
+    "db:rollback": "knex --knexfile database/knexfile.js migrate:rollback",
+    "db:seed": "knex --knexfile database/knexfile.js seed:run"
   },
   "repository": {
     "type": "git",
@@ -37,6 +38,7 @@
     "babel-preset-env": "1.4.0",
     "babel-preset-react": "6.24.1",
     "chai": "3.5.0",
+    "chai-as-promised": "6.0.0",
     "chai-change": "2.1.2",
     "chai-http": "3.0.0",
     "enzyme": "2.8.2",
