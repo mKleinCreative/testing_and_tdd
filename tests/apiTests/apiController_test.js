@@ -1,37 +1,44 @@
-import { expect } from 'chai'
+import nock from 'nock'
 import chai from 'chai'
 import { default as chaiHttp } from 'chai-http'
-import nock from 'nock'
+import { expect } from 'chai'
 const should = chai.should()
 
-import apiControllers from '../../database/controllers/apiControllers'
+chai.use( chaiHttp )
 
-const urlDomain = 'https://www.zipcodeapi.com'
-const urlPath = '/rest/ReiGH9WslgpgCnX2ewoD1qrUyqAwLhoDwGjdQgGcw5t9tqbHXAlY0MTydt5YLtBh/city-zips.json/oakland/ca'
-describe('apiControllers', () => {
+import { apiControllers } from '../../database/controllers'
 
-  context('request should be successful', () => {
-    // nock(urlDomain)
-    // .get(urlPath)
-    // .reply(200, {
-    //   response: {
-    //     message: 'success',
-    //     err: 'fake error',
-    //     body: ['12345', '54321']
-    //   }
+const urlDomain = 'http://www.zipcodeapi.com'
+const urlPath = '/rest/city-zips.json/Los%20Angeles/ca'
+const reqHeaders = { reqHeaders: { 'User-Agent': 'Request-Promise', 'Host': 'www.zipcodeapi.com', 'Accept': 'application/json' } }
 
-    it.only('should return 200', () => {
-      return Promise.resolve(apiControllers.nameToZip('oakland', 'ca'))
-      .then( response => {
-        console.log('nock ::', response)
-      })
-      // chai.request(urlDomain)
-      //   .get(urlPath)
-      //   .end( ( err, res ) => {
-      //     res.status.should.equal(200)
-      //     done()
-      //   })
+describe('\napiControllers\n', () => {
+
+  context('nameToZip()', () => {
+    nock( urlDomain  )
+      .get( urlPath )
+      .query({ access_token: 'js-L3CZB6qGQTdETLM6OCZbiHmIexaFSOJDRmDts39iWnXQ9JWXmW9EDvnS2xxVmhye' })
+      .reply( 200, { zip_codes: ['11111', '12345'] })
+
+    it('returns a zip code retireved from the API.', () => {
+        apiControllers.nameToZip('Los Angeles', 'ca')
+          .then( response => {
+            expect( response ).to.eql( '11111' )
+          })
+    })
+
+    nock( urlDomain  )
+      .get( '/rest/city-zips.json/Los%20Angeles/vvv' )
+      .query({ access_token: 'js-L3CZB6qGQTdETLM6OCZbiHmIexaFSOJDRmDts39iWnXQ9JWXmW9EDvnS2xxVmhye' })
+      .reply( 503, 'Invalid City' )
+
+    it( 'returns an error when provided invalid input.', () => {
+        apiControllers.nameToZip('Los Angeles', 'vvv')
+            .then( response => {
+                expect( response.name ).to.eql( 'StatusCodeError' )
+                expect( response.message ).to.eql( '503 - "Invalid City"' )
+            })
+    })
 
     })
-  })
 })

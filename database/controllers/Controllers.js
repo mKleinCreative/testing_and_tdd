@@ -1,6 +1,5 @@
 import knex from '../knex'
 
-
 const Controllers = {
     getCityByZipCode: zipCode => {
         return knex('cities').select().where({ zip_code: zipCode })
@@ -43,3 +42,5 @@ const Controllers = {
 }
 
 export default Controllers
+
+console.log('stuff')

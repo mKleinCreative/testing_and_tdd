@@ -1,7 +1,7 @@
 import chai from 'chai'
 import { expect } from 'chai'
 import chaiAsPromised from 'chai-as-promised'
-import Controllers from '../../database/controllers/Controllers.js'
+import { Controllers } from '../../database/controllers'
 
 chai.use( chaiAsPromised )
 
