@@ -7,7 +7,7 @@ import server from '../../server/server'
 
 chai.use(chaiHttp)
 
-describe('\nROUTES\n', () => {
+describe('routes', () => {
 
   context('/ route', () => {
     it('should return 200', done => {
