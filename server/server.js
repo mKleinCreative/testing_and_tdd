@@ -15,22 +15,6 @@ server.get('/', (req, res, next) => {
   res.status(200).send('get this weather')
 })
 
-// server.get('/city/:query', (req, res, next) => {
-//   let latitude = null
-//   let longitude = null
-//
-//   const city = req.params.query
-//   request('https://www.zipcodeapi.com/rest/ReiGH9WslgpgCnX2ewoD1qrUyqAwLhoDwGjdQgGcw5t9tqbHXAlY0MTydt5YLtBh/info.json/' + city + '/degrees',
-//     function (error, response, body) {
-//       latitude = body.lat
-//       longitude = body.lng
-//     })
-//   forecastIo.forecast(latitude, longitude)
-//     .then(function(data) {
-//       res.send(JSON.stringify(data.currently, null, 2))
-//     })
-// })
-
 server.use( (req, res, next) => {
   let err = new Error('aint no weather')
   err.status = 404
