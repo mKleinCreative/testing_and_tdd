@@ -2,14 +2,17 @@ const express = require('express')
 const server = express()
 const morgan = require('morgan')
 const bodyParser = require('body-parser')
+const request = require('request')
+const ForecastIo = require('forecastio')
 
 server.use( morgan('dev') )
 server.use( bodyParser.urlencoded({extended: false}) )
 server.use( bodyParser.json() )
 const router = express.Router()
+var forecastIo = new ForecastIo('9f5c9bfa48e038f5a07bc182e612eaa9')
 
 server.get('/', (req, res, next) => {
-  res.status(200).send('Weather goes here')
+  res.status(200).send('get this weather')
 })
 
 server.use( (req, res, next) => {
