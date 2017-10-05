@@ -87,6 +87,9 @@
       "babel-register"
     ]
   },
+  "engines": {
+    "node": ">=4"
+  },
   "eslintConfig": {
     "plugins": [
       "ava"
