@@ -10,6 +10,7 @@
     "test:report": "nyc ava",
     "db:latest": "knex --knexfile database/knexfile.js migrate:latest",
     "db:rollback": "knex --knexfile database/knexfile.js migrate:rollback",
+    "db:setup": "dropdb weather-app; createdb weather-app",
     "db:seed": "knex --knexfile database/knexfile.js seed:run"
   },
   "repository": {
